@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>メモアプリ</title>
+  <style>
+      .add_button {
+          border: #aaaaaa solid 1px;
+          border-radius: 4px;
+          text-align: center;
+          width: 100px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+      }
+  </style>
+</head>
+<body>
+<h1>メモアプリ</h1>
+<a href="memo">
+  <button type="button" class="add_button">追加</button>
+</a>
+
+<% unless @memos.empty? %>
+  <ul>
+    <% @memos.each do |f| %>
+      <a href="memo/<%= f["memo_id"] %>">
+        <li><%= f["title"] %></li>
+      </a>
+    <% end %>
+  </ul>
+<% end %>
+</body>
+</html>

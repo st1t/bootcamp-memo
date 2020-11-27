@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>メモの新規追加</title>
+  <style>
+      .body {
+          padding: 5px;
+          margin-left: 5%;
+          margin-right: 5%;
+      }
+
+      .form {
+          width: 80%;
+          display: block;
+          margin: auto;
+      }
+
+      .title {
+          display: flex;
+          margin: 10px;
+      }
+
+      .title_label {
+          width: 100px;
+      }
+
+      .title_text {
+          width: auto;
+      }
+
+      .contents {
+          display: flex;
+          margin: 10px;
+      }
+
+      .contents_label {
+          width: 100px;
+      }
+
+      .contents_text {
+          width: auto;
+      }
+
+      .save-button {
+          text-align: center;
+      }
+
+      .save-button_input {
+          border: #aaaaaa solid 1px;
+          border-radius: 4px;
+          text-align: center;
+          width: 100px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+      }
+  </style>
+</head>
+<div class="body">
+  <h1>メモの新規追加</h1>
+  <body>
+  <div class="form">
+    <form action="memo" method="post">
+      <div class="title">
+        <div class="title_label">
+          <label>タイトル</label>
+        </div>
+        <div class="title_text">
+          <input type=text name="title" value="タイトル" size="50">
+        </div>
+      </div>
+      <div class="contents">
+        <div class="contents_label">
+          <label>内容</label>
+        </div>
+        <div class="contents_text">
+          <textarea class="contents" name="body" rows="10" cols="60"></textarea>
+        </div>
+      </div>
+      <div class="save-button">
+        <input class="save-button_input" type="submit" value="保存"></input>
+      </div>
+    </form>
+  </div>
+  </body>
+</div>
+</html>

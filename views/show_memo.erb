@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>メモの詳細画面</title>
+  <style>
+      .title {
+          font-size: 30px;
+          margin: 10px;
+          text-align: left;
+      }
+
+      .body {
+          font-size: 20px;
+          margin: 10px;
+          text-align: left;
+      }
+
+      .buttons {
+          text-align: center;
+          display: flex;
+      }
+
+      .button {
+          margin: 10px;
+          border: #aaaaaa solid 1px;
+          border-radius: 4px;
+          text-align: center;
+          width: 100px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+      }
+  </style>
+</head>
+<body>
+<h1>メモの詳細</h1>
+
+<% if @message %>
+  <div class="title"><%= @message["title"] %></div>
+  <div class="body"><%= @message["body"].gsub(/\r\n/,"<br>") %></div>
+  <div class="buttons">
+    <a href="/editor/<%= @memo_id %>">
+      <button class="button" type="button">変更</button>
+    </a>
+    <form action="/memo/<%= @memo_id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input class="button" type="submit" value="削除">
+    </form>
+  </div>
+<% else %>
+  <div>MemoId: <%= @memo_id %>のファイルは存在しません</div>
+<% end %>
+</body>
+</html>
