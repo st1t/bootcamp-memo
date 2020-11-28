@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    container_name: "memodb"
+    environment:
+      - POSTGRES_USER=app_user
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=memo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_volume:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data_volume: { }
