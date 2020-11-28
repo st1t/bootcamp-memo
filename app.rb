@@ -11,7 +11,7 @@ DB_DIRECTORY.freeze
 def memos
   memos = []
   Dir.foreach(DB_DIRECTORY) do |f|
-    if File::Stat.new("#{DB_DIRECTORY}/#{f}").ftype == 'file'
+    if f.match(/.*\.json$/)
       File.open("#{DB_DIRECTORY}/#{f}") do |j|
         memos << JSON.parse(File.read(j))
       end
