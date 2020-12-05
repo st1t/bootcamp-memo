@@ -5,7 +5,7 @@ require 'sinatra/reloader'
 require 'json'
 require 'securerandom'
 
-DB_DIRECTORY = './db'
+DB_DIRECTORY = './db/memos'
 DB_DIRECTORY.freeze
 
 def memos
@@ -18,6 +18,10 @@ def memos
     end
   end
   memos
+end
+
+def escape_html(text)
+  Rack::Utils.escape_html(text)
 end
 
 get '/' do
@@ -33,11 +37,10 @@ post '/memo' do
   hash = {}
   memo_id = SecureRandom.uuid
   hash['memo_id'] = memo_id
-  hash['title'] = params[:title]
-  hash['body'] = params[:body]
+  hash['title'] = escape_html(params[:title])
+  hash['body'] = escape_html(params[:body])
   File.open("#{DB_DIRECTORY}/#{memo_id}.json", 'a') do |f|
     f.puts JSON.generate(hash)
-    f.close
   end
   redirect to('/')
 end
@@ -57,14 +60,13 @@ end
 
 patch '/memo/:memo_id' do
   memo_id = params[:memo_id]
-  title = params[:title]
-  body = params[:body]
+  title = escape_html(params[:title])
+  body = escape_html(params[:body])
   hash = JSON.parse(File.read("#{DB_DIRECTORY}/#{memo_id}.json"))
   hash['title'] = title
   hash['body'] = body
   File.open("#{DB_DIRECTORY}/#{memo_id}.json", 'w') do |f|
     f.puts(JSON.generate(hash))
-    f.close
   end
   redirect to('/')
 end
