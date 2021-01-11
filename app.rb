@@ -15,29 +15,29 @@ get '/memo' do
 end
 
 post '/memo' do
-  memo = Memo.new(id: SecureRandom.uuid, title: params[:title], contents: params[:body])
+  memo = Memo.new(title: params[:title], contents: params[:body])
   memo.add
   redirect to('/')
 end
 
-get '/memo/:memo_id' do
-  @memo = Memo.new(id: params[:memo_id]).search
+get '/memo/:id' do
+  @memo = Memo.new(id: params[:id]).search
   erb :show_memo
 end
 
-delete '/memo/:memo_id' do
-  memo = Memo.new(id: params[:memo_id]).search
+delete '/memo/:id' do
+  memo = Memo.new(id: params[:id]).search
   memo.delete
   redirect to('/')
 end
 
-get '/editor/:memo_id' do
-  @memo = Memo.new(id: params[:memo_id]).search
+get '/editor/:id' do
+  @memo = Memo.new(id: params[:id]).search
   erb :edit_memo
 end
 
-patch '/memo/:memo_id' do
-  memo = Memo.new(id: params[:memo_id], title: params[:title], contents: params[:contents])
+patch '/memo/:id' do
+  memo = Memo.new(id: params[:id], title: params[:title], contents: params[:contents])
   memo.update
   redirect to('/')
 end

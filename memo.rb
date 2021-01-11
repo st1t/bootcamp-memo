@@ -11,7 +11,7 @@ DB_PASSWORD = 'changeme'
 class Memo
   attr_reader :id, :title, :contents
 
-  def initialize(id:, title: '', contents: '')
+  def initialize(id: '', title: '', contents: '')
     @id = id
     @title = title
     @contents = contents
@@ -20,7 +20,7 @@ class Memo
   def self.all
     memos = []
     conn = PG.connect(host: DB_HOST, dbname: DB_NAME, user: DB_USER, password: DB_PASSWORD)
-    conn.exec('SELECT memo_id, title, contents FROM memos') do |result|
+    conn.exec('SELECT id, title, contents FROM memos') do |result|
       result.each do |row|
         memos << row
       end
@@ -30,12 +30,12 @@ class Memo
 
   def add
     conn = pg_connect
-    conn.exec("INSERT INTO memos (memo_id, title, contents) VALUES('#{@id}','#{@title}','#{@contents}')")
+    conn.exec("INSERT INTO memos (title, contents) VALUES('#{@title}','#{@contents}')")
   end
 
   def search
     conn = pg_connect
-    conn.exec("SELECT memo_id, title, contents FROM memos WHERE memo_id LIKE '#{@id}'") do |result|
+    conn.exec("SELECT title, contents FROM memos WHERE id = #{@id}") do |result|
       @title = result[0]['title']
       @contents = result[0]['contents']
     end
@@ -44,12 +44,12 @@ class Memo
 
   def delete
     conn = pg_connect
-    conn.exec("DELETE FROM memos WHERE memo_id = '#{@id}'")
+    conn.exec("DELETE FROM memos WHERE id = '#{@id}'")
   end
 
   def update
     conn = pg_connect
-    conn.exec("UPDATE memos SET title = '#{@title}', contents = '#{@contents}' WHERE memo_id = '#{@id}'")
+    conn.exec("UPDATE memos SET title = '#{@title}', contents = '#{@contents}' WHERE id = '#{@id}'")
   end
 
   private
