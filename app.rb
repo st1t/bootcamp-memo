@@ -6,7 +6,8 @@ require 'securerandom'
 require './memo'
 
 get '/' do
-  @memos = Memo.all
+  memo = Memo.new()
+  @memos = memo.all
   erb :top
 end
 

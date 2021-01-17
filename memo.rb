@@ -17,9 +17,9 @@ class Memo
     @contents = contents
   end
 
-  def self.all
+  def all
     memos = []
-    conn = PG.connect(host: DB_HOST, dbname: DB_NAME, user: DB_USER, password: DB_PASSWORD)
+    conn = pg_connect
     conn.exec('SELECT id, title, contents FROM memos') do |result|
       result.each do |row|
         memos << row
