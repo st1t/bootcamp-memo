@@ -20,7 +20,7 @@ class Memo
   def all
     memos = []
     conn = pg_connect
-    conn.exec('SELECT id, title, contents FROM memos') do |result|
+    conn.exec_params('SELECT id, title, contents FROM memos') do |result|
       result.each do |row|
         memos << row
       end
@@ -30,12 +30,12 @@ class Memo
 
   def add
     conn = pg_connect
-    conn.exec("INSERT INTO memos (title, contents) VALUES('#{@title}','#{@contents}')")
+    conn.exec_params("INSERT INTO memos (title, contents) VALUES('#{@title}','#{@contents}')")
   end
 
   def search
     conn = pg_connect
-    conn.exec("SELECT title, contents FROM memos WHERE id = #{@id}") do |result|
+    conn.exec_params("SELECT title, contents FROM memos WHERE id = #{@id}") do |result|
       @title = result[0]['title']
       @contents = result[0]['contents']
     end
@@ -44,12 +44,12 @@ class Memo
 
   def delete
     conn = pg_connect
-    conn.exec("DELETE FROM memos WHERE id = '#{@id}'")
+    conn.exec_params("DELETE FROM memos WHERE id = '#{@id}'")
   end
 
   def update
     conn = pg_connect
-    conn.exec("UPDATE memos SET title = '#{@title}', contents = '#{@contents}' WHERE id = '#{@id}'")
+    conn.exec_params("UPDATE memos SET title = '#{@title}', contents = '#{@contents}' WHERE id = '#{@id}'")
   end
 
   private
