@@ -21,7 +21,7 @@ class Memo
 
   def all
     memos = []
-    @conn.exec_params('SELECT id, title, contents FROM memos') do |result|
+    @conn.exec('SELECT id, title, contents FROM memos') do |result|
       result.each do |row|
         memos << row
       end
@@ -30,11 +30,11 @@ class Memo
   end
 
   def add
-    @conn.exec_params("INSERT INTO memos (title, contents) VALUES('#{@title}','#{@contents}')")
+    @conn.exec_params("INSERT INTO memos (title, contents) VALUES($1,$2)", [@title, @contents])
   end
 
   def search
-    @conn.exec_params("SELECT title, contents FROM memos WHERE id = #{@id}") do |result|
+    @conn.exec_params("SELECT title, contents FROM memos WHERE id = $1", [@id]) do |result|
       @title = result[0]['title']
       @contents = result[0]['contents']
     end
@@ -42,10 +42,10 @@ class Memo
   end
 
   def delete
-    @conn.exec_params("DELETE FROM memos WHERE id = '#{@id}'")
+    @conn.exec_params("DELETE FROM memos WHERE id = $1", [@id])
   end
 
   def update
-    @conn.exec_params("UPDATE memos SET title = '#{@title}', contents = '#{@contents}' WHERE id = '#{@id}'")
+    @conn.exec_params("UPDATE memos SET title = $1, contents = $2 WHERE id = $3", [@title, @contents, @id])
   end
 end
