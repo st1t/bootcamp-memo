@@ -8,6 +8,14 @@ dbディレクトリ配下にメモの内容をjsonファイルとして保存�
 # 起動方法
 
 ```
+$ docker-compose up -d
 $ bundle install
 $ bundle exec ruby app.rb
+```
+
+# DB削除方法
+
+```
+$ docker-compose rm -f
+$ docker volume rm memosinatra_postgres_data_volume
 ```

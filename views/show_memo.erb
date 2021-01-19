@@ -35,20 +35,20 @@
 <body>
 <h1>メモの詳細</h1>
 
-<% if @message %>
-  <div class="title"><%= @message["title"] %></div>
-  <div class="body"><%= @message["body"].gsub(/\r\n/,"<br>") %></div>
+<% if @memo %>
+  <div class="title"><%= @memo.title %></div>
+  <div class="body"><%= @memo.contents.gsub(/\r\n/,"<br>") %></div>
   <div class="buttons">
-    <a href="/editor/<%= @memo_id %>">
+    <a href="/editor/<%= @memo.id %>">
       <button class="button" type="button">変更</button>
     </a>
-    <form action="/memo/<%= @memo_id %>" method="post">
+    <form action="/memo/<%= @memo.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <input class="button" type="submit" value="削除">
     </form>
   </div>
 <% else %>
-  <div>MemoId: <%= @memo_id %>のファイルは存在しません</div>
+  <div>MemoId: <%= @memo.id %>のファイルは存在しません</div>
 <% end %>
 </body>
 </html>

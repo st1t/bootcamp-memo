@@ -60,14 +60,14 @@
   <body>
   <h1>メモの編集</h1>
   <div class="form">
-    <form action="/memo/<%= @message["memo_id"] %>" method="post">
+    <form action="/memo/<%= @memo.id %>" method="post">
       <input type="hidden" name="_method" value="patch">
       <div class="title">
         <div class="title_label">
           <label>タイトル</label>
         </div>
         <div class="title_text">
-          <input class="text-box" size="50" type=text name="title" value="<%= @message["title"] %>">
+          <input class="text-box" size="50" type=text name="title" value="<%= @memo.title %>">
         </div>
       </div>
       <div class="contents">
@@ -75,7 +75,7 @@
           <label class="label">内容</label>
         </div>
         <div class="contents_text">
-          <textarea class="text-box" rows="10" cols="60" name="body"><%= @message["body"] %></textarea>
+          <textarea class="text-box" rows="10" cols="60" name="contents"><%= @memo.contents %></textarea>
         </div>
       </div>
       <div class="modify-button">

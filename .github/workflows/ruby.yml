@@ -28,6 +28,8 @@ jobs:
           ruby-version: 2.7.2
       - name: Install gems
         run: gem install rubocop rubocop-fjord
-      - name: Run rubocop
+      - name: Run rubocop app.rb
         run: rubocop app.rb
+      - name: Run rubocop memo.rb
+        run: rubocop memo.rb
 

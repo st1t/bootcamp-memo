@@ -23,7 +23,7 @@
 <% unless @memos.empty? %>
   <ul>
     <% @memos.each do |f| %>
-      <a href="memo/<%= f["memo_id"] %>">
+      <a href="memo/<%= f["id"] %>">
         <li><%= f["title"] %></li>
       </a>
     <% end %>
